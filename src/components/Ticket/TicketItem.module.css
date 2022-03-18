@@ -1,0 +1,15 @@
+.item {
+    background-color: rgb(228, 228, 228);
+}
+
+.high {
+    border-left: solid red 8px;
+}
+
+.medium {
+    border-left: solid orange 8px;
+}
+
+.low {
+    border-left: solid yellowgreen 8px;
+}

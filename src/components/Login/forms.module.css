@@ -1,0 +1,23 @@
+.card {
+    margin: 40px;
+}
+
+.form {
+    padding: 20px;
+}
+
+.input {
+    margin-top: 20px;
+}
+
+.btn {
+    margin-top: 20px;
+    height: 50px;
+    background-color: rgb(99, 99, 221);
+    color: white;
+}
+
+.link {
+    margin-top: 20px;
+    text-align: center;
+}
