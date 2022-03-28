@@ -1,0 +1,58 @@
+.customIcon {
+    /* Union */
+
+position: absolute;
+width: 33px;
+height: 43px;
+left: 17px;
+top: 128px;
+
+background: #627361;
+
+
+/* Rectangle 18 */
+
+position: absolute;
+width: 23px;
+height: 43px;
+left: 27px;
+top: 128px;
+
+background: #C4C4C4;
+border-radius: 100px;
+
+
+/* Subtract */
+
+position: absolute;
+width: 21px;
+height: 42.99px;
+left: 17px;
+top: 128.01px;
+
+background: #C4C4C4;
+
+
+/* Rectangle 19 */
+
+position: absolute;
+width: 50px;
+height: 43px;
+left: 17px;
+top: 128px;
+
+background: #C4C4C4;
+border-radius: 100px;
+
+
+/* Rectangle 20 */
+
+position: absolute;
+width: 43px;
+height: 59px;
+left: 38px;
+top: 119px;
+
+background: #C4C4C4;
+
+}

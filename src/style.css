@@ -1,0 +1,223 @@
+.round {
+  border-radius: 100px;
+}
+
+.shadow {
+  box-shadow: -2px 3px 3px rgb(93, 110, 90);
+}
+
+.icon-background {
+  height: 40px;
+  width: 40px;
+}
+
+.center-vertically {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.width100 {
+  width: 100%;
+}
+
+.almost-full-width {
+  margin: auto;
+  width: 97%;
+}
+
+.low-text {
+  margin-top: 10px;
+}
+
+.margin-left {
+  margin-left: 15px;
+}
+
+.margin-right {
+  margin-right: 20px;
+}
+
+.margin-down {
+  margin-bottom: 20px;
+}
+.margin-auto {
+  margin: auto;
+}
+
+.icon-margin {
+  margin-left: 12px;
+}
+
+.disabled {
+  color: rgb(167, 167, 167);
+}
+
+.backColor {
+  color: #eeeeee;
+}
+
+.sColor {
+  color: #627361;
+}
+
+.pColor {
+  color: #172216;
+}
+
+.pBColor {
+  background-color: #172216;
+}
+
+.sBColor {
+  background-color: #627361;
+}
+
+.warningBColor {
+  background-color: #691010;
+}
+
+.alertBColor {
+  background-color: #87650d;
+}
+
+.successBColor {
+  background-color: #497e05;
+}
+
+.warningColor {
+  color: #691010;
+}
+
+.alertColor {
+  color: #87650d;
+}
+
+.successColor {
+  color: #497e05;
+}
+
+.inputRounded .MuiOutlinedInput-root {
+  border-radius: 100px;
+  height: 30px;
+  background-color: #eeeeee;
+}
+
+.inputRounded .MuiOutlinedInput-root:hover {
+  border-radius: 100px;
+  border: 0;
+  height: 30px;
+  background-color: #e0e0e0;
+}
+
+.inputBtn .MuiButtonBase-root {
+  height: 50px;
+  width: 50px;
+}
+
+.side-icon {
+  margin: auto;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.delete-button {
+  margin-right: 12px;
+  margin-left: auto;
+}
+
+.logo {
+  height: 45px;
+}
+
+.modal-border {
+  margin: auto;
+  width: 90%;
+  max-width: 800px;
+}
+
+.add-button {
+  height: 60px;
+  width: 100%;
+  border: #627361 2px solid;
+  border-radius: 100px;
+}
+
+.add-button-margin {
+  margin-left: 18px;
+  margin-right: 18px;
+  margin-top: 15px;
+}
+
+.add-button Button {
+  height: 60px;
+  width: 100%;
+}
+
+.ticket-item {
+  box-shadow: -2px 3px 3px rgb(93, 110, 90);
+  height: 60px;
+  background-color: #eeeeee;
+  transition: all 0.5s;
+}
+
+.ticket-item:hover {
+  transform: translateY(-3px);
+  box-shadow: -2px 6px 3px rgb(93, 110, 90);
+
+}
+
+.appBar {
+  padding: 10px;
+  padding-top: 20px;
+  background-color: #627361;
+  border-radius: 0 0 15px 15px;
+  box-shadow: -2px 3px 3px rgb(60, 77, 57);
+}
+
+.file {
+  background-color: #eeeeee;
+  border-radius: 15px;
+}
+
+.file-linker {
+  opacity: 0%;
+}
+
+.file-linker:hover {
+  opacity: 100%;
+}
+
+.file-button {
+  padding: 10px;
+  border-radius: 100px;
+  background-color: #627361;
+  color: #eeeeee;
+}
+
+.btn-right {
+  height: 50px;
+  width: 150px;
+  position: absolute;
+  right: 0;
+  bottom: 20px;
+  border-radius: 100px 0 0 100px;
+  background-color: #627361;
+  color: #eeeeee;
+  cursor: pointer;
+}
+
+.btn-left {
+  height: 50px;
+  width: 150px;
+  position: absolute;
+  left: 0;
+  bottom: 20px;
+  border-radius: 0 100px 100px 0;
+  background-color: #627361;
+  color: #eeeeee;
+  cursor: pointer;
+}
+
+
+

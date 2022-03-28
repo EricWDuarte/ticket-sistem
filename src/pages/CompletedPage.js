@@ -2,16 +2,15 @@ import { Alert, Button, Dialog, Grid, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import TicketList from "../components/Ticket/TicketList";
+import CompletedTicketList from "../components/Ticket/CompletedTicketList";
 import { useAuth } from "../contexts/AuthContext";
-import CreateTicketModal from "../components/Ticket/CreateTicketModal";
 import { collection } from "firebase/firestore";
 import { db } from "../firebase-config";
-import { GetUserTickets } from "../apis/TicketsApi";
+import { GetCompletedUserTickets } from "../apis/TicketsApi";
 import AppBar from "../components/AppBar";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-function ActivityPage(props) {
+function CompletedPage(props) {
   const { currentUser } = useAuth();
   const [ticketList, setTicketList] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -30,7 +29,7 @@ function ActivityPage(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await GetUserTickets(currentUser.uid);
+      const data = await GetCompletedUserTickets(currentUser.uid);
       setTicketList(data);
     };
 
@@ -45,8 +44,8 @@ function ActivityPage(props) {
     setOpenModal(false);
   }
 
-  function completedPage() {
-    navigate("/completed", { replace: true });
+  function mainPage() {
+    navigate("/", { replace: true });
   }
 
   return (
@@ -68,39 +67,33 @@ function ActivityPage(props) {
           >
             <Grid item xs={12}>
               <Typography variant="h1" textAlign="center">
-                Your list of tickets is empty.
+                Your list of completed tickets is empty.
               </Typography>
             </Grid>
 
             <Grid item xs={12}>
               <Typography variant="body1" textAlign="center">
-                Add some new tickets to get started!
+                Go to the <Link to="/">main page</Link> and complete some
+                tickets
               </Typography>
             </Grid>
           </Grid>
         </Grid>
       )}
-      <div className="add-button-margin">
-        <div className="round add-button shadow">
-          <Button onClick={handleOpenModal} className="add-button">
-            <Typography variant="h4" className="sColor">
-              +
-            </Typography>
-          </Button>
-        </div>
-      </div>
-      <TicketList query={query} filterType={filterType} dataList={ticketList} />
-      <Dialog open={openModal} onBackdropClick={handleCloseModal}>
-        <CreateTicketModal close={handleCloseModal} />
-      </Dialog>
-      <div onClick={completedPage} className="btn-right center-vertically">
-        <div className="margin-left">
-          <Typography color="#eeeeee">Completed</Typography>
-        </div>
-        <ArrowForwardIcon className="backColor icon-margin" fontSize="large" />
+      <CompletedTicketList query={query} filterType={filterType} dataList={ticketList} />
+      <div onClick={mainPage} className="btn-left center-vertically">
+        <Grid container justifyContent="flex-end" alignContent="center">
+          <ArrowBackIcon
+            className="backColor icon-margin margin-right"
+            fontSize="large"
+          />
+          <div className="margin-right margin-auto">
+            <Typography color="#eeeeee">Main</Typography>
+          </div>
+        </Grid>
       </div>
     </div>
   );
 }
 
-export default ActivityPage;
+export default CompletedPage;

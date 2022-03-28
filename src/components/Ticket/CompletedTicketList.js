@@ -2,9 +2,9 @@ import { Button, MenuItem, TextField } from "@mui/material";
 import List from "@mui/material/List";
 import { useEffect, useRef, useState } from "react";
 import Pagination from "../Pagination";
-import TicketItem from "./TicketItem";
+import CompletedTicketItem from "./CompletedTicketItem";
 
-function TicketList(props) {
+function CompletedTicketList(props) {
   const [currentDataList, setCurrentDataList] = useState([]);
   const [filteredDataList, setFilteredDataList] = useState(props.dataList);
 
@@ -51,7 +51,7 @@ function TicketList(props) {
       <List>
         {props.children}
         {currentDataList.map((data) => (
-          <TicketItem
+          <CompletedTicketItem
             key={data.id}
             id={data.id}
             title={data.title}
@@ -73,4 +73,4 @@ function TicketList(props) {
   );
 }
 
-export default TicketList;
+export default CompletedTicketList;

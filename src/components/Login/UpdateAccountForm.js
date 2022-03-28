@@ -1,34 +1,45 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
-import { Alert, Button, Divider, Grid, Typography } from "@mui/material";
 
 import Classes from "./forms.module.css";
+import { Alert, Button, Divider, Grid, Typography } from "@mui/material";
 import { useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { Box } from "@mui/system";
 
-function ChangePasswordPage() {
+function UpdateAccountForm() {
   const emailRef = useRef();
+  const passwordRef = useRef();
+  const repeatPasswordRef = useRef();
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const { resetPassword } = useAuth();
+  const { currentUser, changeEmail, changePassword } = useAuth();
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    try {
-      setError("");
-      setMessage("");
-      setLoading(true);
-      await resetPassword(emailRef.current.value);
-      setMessage("Check email for a link to change your password");
-    } catch (e) {
-      console.log(e);
-      setError("Failed to change password.");
-      setLoading(false);
+    const promisses = [];
+    setLoading(true);
+
+    if (emailRef.current.value !== currentUser.email) {
+      promisses.push(changeEmail(emailRef.current.value));
     }
+
+    if (passwordRef.current.value) {
+      promisses.push(changePassword(passwordRef.current.value));
+    }
+
+    Promise.all(promisses)
+      .then(() => {
+        setError("");
+        navigate("/", { replace: true });
+      })
+      .catch(() => {
+        setError("Failed to update account");
+        setLoading(false);
+      });
   }
 
   return (
@@ -37,20 +48,35 @@ function ChangePasswordPage() {
         <Box m={4}>
           <Box mb={5}>
             <Typography variant="h1" align="center">
-              Change Password
+              Update Account
             </Typography>
           </Box>
           {error && <Alert severity="warning">{error}</Alert>}
-          {message && <Alert severity="success">{message}</Alert>}
           <form onSubmit={handleSubmit}>
             <Box mt={3} mb={3}>
               <TextField
                 className={Classes.input}
                 variant="filled"
                 fullWidth
-                required
                 inputRef={emailRef}
                 label="Email"
+              />
+              <TextField
+                className={Classes.input}
+                variant="filled"
+                type="password"
+                fullWidth
+                inputRef={passwordRef}
+                label="Password"
+              />
+              <TextField
+                className={Classes.input}
+                variant="filled"
+                type="password"
+                fullWidth
+                inputRef={repeatPasswordRef}
+                helperText="Leave passwords blank to keep the same"
+                label="Password"
               />
             </Box>
             <Box mb={3}>
@@ -62,14 +88,14 @@ function ChangePasswordPage() {
                 className={Classes.btn}
                 fullWidth
               >
-                Send Email
+                Confirm
               </Button>
             </Box>
             <Divider className="width100"></Divider>
           </form>
           <Grid container mt={2} justifyContent="center" item xs={12}>
             <Typography>
-              Already have an account? <Link to="/signin">Sing in</Link>
+              <Link to="/">Cancel</Link>
             </Typography>
           </Grid>
         </Box>
@@ -78,4 +104,4 @@ function ChangePasswordPage() {
   );
 }
 
-export default ChangePasswordPage;
+export default UpdateAccountForm;

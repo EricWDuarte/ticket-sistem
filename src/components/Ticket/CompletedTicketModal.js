@@ -11,12 +11,12 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
 import Iframe from "react-iframe";
 
-import { DeleteTicket } from "../../apis/TicketsApi";
+import { DeleteCompletedTicket } from "../../apis/TicketsApi";
 import TicketEdit from "./TicketEdit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 
-function TicketModal(props) {
+function CompletedTicketModal(props) {
   const [openTicketEdit, setOpenTicketEdit] = useState(false);
   const [openTicketDelete, setOpenTicketDelete] = useState(false);
   const urls = props.parentProps.filesUrls;
@@ -25,14 +25,6 @@ function TicketModal(props) {
     props.close();
   }
 
-  function openEdit(e) {
-    e.stopPropagation();
-    setOpenTicketEdit(true);
-  }
-
-  function closeEdit() {
-    setOpenTicketEdit(false);
-  }
 
   function openDelete(e) {
     e.stopPropagation();
@@ -40,7 +32,7 @@ function TicketModal(props) {
   }
 
   async function onDelete() {
-    await DeleteTicket(props.parentProps.id);
+    await DeleteCompletedTicket(props.parentProps.id);
     window.location.reload(false);
     closeDelete();
   }
@@ -152,15 +144,9 @@ function TicketModal(props) {
           <IconButton onClick={openDelete} className="margin-auto">
             <DeleteForeverIcon className="warningColor margin-auto" />
           </IconButton>
-          <IconButton onClick={openEdit} className="margin-auto">
-            <EditIcon className="alertColor margin-auto" />
-          </IconButton>
           <Button onClick={closeModal}>Close</Button>
         </Grid>
       </Grid>
-      <Dialog open={openTicketEdit} onBackdropClick={closeEdit}>
-        <TicketEdit parentProps={props.parentProps} close={closeEdit} />
-      </Dialog>
       <Dialog open={openTicketDelete} onBackdropClick={closeDelete}>
         <Box m={2}>
           <Typography>Are you sure you want to delete?</Typography>
@@ -176,4 +162,4 @@ function TicketModal(props) {
   );
 }
 
-export default TicketModal;
+export default CompletedTicketModal;

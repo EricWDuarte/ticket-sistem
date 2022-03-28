@@ -5,13 +5,13 @@ import Grid from "@mui/material/Grid";
 import PersonIcon from "@mui/icons-material/Person";
 import Dialog from "@mui/material/Dialog";
 import { Button, createTheme, IconButton, ThemeProvider } from "@mui/material";
-
-import TicketModal from "./TicketModal";
-import { DeleteTicket, completeTicket } from "../../apis/TicketsApi";
-import { ReactComponent as SideIcon } from "../../assets/sideIcon.svg";
-import CheckIcon from "@mui/icons-material/Check";
+import ReplayIcon from "@mui/icons-material/Replay";
 import FmdBadIcon from "@mui/icons-material/FmdBad";
 import { Box } from "@mui/system";
+
+import CompletedTicketModal from "./CompletedTicketModal";
+import { DeleteCompletedTicket, CreateTicket } from "../../apis/TicketsApi";
+import { ReactComponent as SideIcon } from "../../assets/sideIcon.svg";
 
 const themeTicket = createTheme({
   typography: {
@@ -38,9 +38,9 @@ const themeTicket = createTheme({
   },
 });
 
-function TicketItem(props) {
+function CompletedTicketItem(props) {
   const [openTicketModal, setOpenTicketModal] = useState(false);
-  const [isConcludeOpen, setIsConcludeOpen] = useState(false);
+  const [isRestoreOpen, setIsRestoreOpen] = useState(false);
 
   function openTicket() {
     setOpenTicketModal(true);
@@ -50,17 +50,17 @@ function TicketItem(props) {
     setOpenTicketModal(false);
   }
 
-  function openConclude(e) {
+  function openRestore(e) {
     e.stopPropagation();
-    setIsConcludeOpen(true);
+    setIsRestoreOpen(true);
 
-    completeTicket(props.data).then(() => {
-      DeleteTicket(props.id);
+    CreateTicket(props.data).then(() => {
+      DeleteCompletedTicket(props.id);
     });
   }
 
-  function closeConclude() {
-    setIsConcludeOpen(false);
+  function closeRestore() {
+    setIsRestoreOpen(false);
     window.location.reload(false);
   }
 
@@ -79,7 +79,7 @@ function TicketItem(props) {
       <ThemeProvider theme={themeTicket}>
         <ListItem onClick={openTicket}>
           <div className="width100">
-            <div className="round ticket-item center-vertically">
+            <div className="round shadow ticket-item center-vertically">
               <div className="side-icon">
                 <SideIcon />
               </div>
@@ -144,8 +144,8 @@ function TicketItem(props) {
               </div>
               <div className="center-vertically delete-button">
                 <div className={"round icon-background sBColor"}>
-                  <IconButton onClick={openConclude} className="margin-auto">
-                    <CheckIcon className="backColor margin-auto" />
+                  <IconButton onClick={openRestore} className="margin-auto">
+                    <ReplayIcon className="backColor margin-auto" />
                   </IconButton>
                 </div>
               </div>
@@ -154,13 +154,13 @@ function TicketItem(props) {
         </ListItem>
       </ThemeProvider>
       <Dialog open={openTicketModal} onBackdropClick={closeTicket}>
-        <TicketModal parentProps={props} close={closeTicket} />
+        <CompletedTicketModal parentProps={props} close={closeTicket} />
       </Dialog>
-      <Dialog open={isConcludeOpen} onBackdropClick={closeConclude}>
+      <Dialog open={isRestoreOpen} onBackdropClick={closeRestore}>
         <Box m={3}>
-          <Typography>Ticket moved to completed list</Typography>
+          <Typography>Ticket restored to main list</Typography>
           <Grid container justifyContent="center">
-            <Button onClick={closeConclude}>Ok</Button>
+            <Button onClick={closeRestore}>Ok</Button>
           </Grid>
         </Box>
       </Dialog>
@@ -168,4 +168,4 @@ function TicketItem(props) {
   );
 }
 
-export default TicketItem;
+export default CompletedTicketItem;

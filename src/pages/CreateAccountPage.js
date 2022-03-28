@@ -1,5 +1,11 @@
+import CreateAccountForm from "../components/Login/CreateAccountForm";
+
 function CreateAccountPage() {
-    return <div>Change Password</div>
+  return (
+    <div>
+      <CreateAccountForm />
+    </div>
+  );
 }
 
 export default CreateAccountPage;
