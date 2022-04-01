@@ -31,7 +31,7 @@ function TicketList(props) {
 
       if (props.filterType === "Priority") {
         const temp = props.dataList.filter((ticket) => {
-          return ticket.priority == props.query;
+          return ticket.priority === props.query;
         });
         setFilteredDataList(temp);
         return;
@@ -64,6 +64,7 @@ function TicketList(props) {
             environment={data.environment}
             description={data.description}
             filesUrls={data.filesUrls}
+            actions={data.actions}
             data={data}
           />
         ))}

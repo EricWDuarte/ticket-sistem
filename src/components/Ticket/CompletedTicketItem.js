@@ -10,8 +10,10 @@ import FmdBadIcon from "@mui/icons-material/FmdBad";
 import { Box } from "@mui/system";
 
 import CompletedTicketModal from "./CompletedTicketModal";
-import { DeleteCompletedTicket, CreateTicket } from "../../apis/TicketsApi";
+import { CreateTicket, DeleteCompletedTicket } from "../../apis/TicketsApi";
 import { ReactComponent as SideIcon } from "../../assets/sideIcon.svg";
+import { useAuth } from "../../contexts/AuthContext";
+import { DateFormater } from "../../utils/DateFormater";
 
 const themeTicket = createTheme({
   typography: {
@@ -41,6 +43,9 @@ const themeTicket = createTheme({
 function CompletedTicketItem(props) {
   const [openTicketModal, setOpenTicketModal] = useState(false);
   const [isRestoreOpen, setIsRestoreOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { currentUser } = useAuth();
 
   function openTicket() {
     setOpenTicketModal(true);
@@ -50,13 +55,27 @@ function CompletedTicketItem(props) {
     setOpenTicketModal(false);
   }
 
-  function openRestore(e) {
+  async function openRestore(e) {
     e.stopPropagation();
+    setIsLoading(true);
     setIsRestoreOpen(true);
 
-    CreateTicket(props.data).then(() => {
-      DeleteCompletedTicket(props.id);
-    });
+    const data = props.data;
+
+    let newTicket = data;
+    let historyData = { ...data };
+    delete historyData.actions
+
+    newTicket.actions.unshift({data: historyData, frase: `Ticket Restored ${DateFormater(new Date())}`})
+    await CreateTicket(newTicket);
+    await DeleteCompletedTicket(
+      props.id,
+      currentUser.uid,
+      props.data,
+      "Ticket Restored"
+    );
+
+    setIsLoading(false);
   }
 
   function closeRestore() {
@@ -156,11 +175,20 @@ function CompletedTicketItem(props) {
       <Dialog open={openTicketModal} onBackdropClick={closeTicket}>
         <CompletedTicketModal parentProps={props} close={closeTicket} />
       </Dialog>
-      <Dialog open={isRestoreOpen} onBackdropClick={closeRestore}>
+      <Dialog
+        open={isRestoreOpen}
+        onBackdropClick={() => {
+          if (!isLoading) {
+            closeRestore();
+          }
+        }}
+      >
         <Box m={3}>
           <Typography>Ticket restored to main list</Typography>
           <Grid container justifyContent="center">
-            <Button onClick={closeRestore}>Ok</Button>
+            <Button disabled={isLoading} onClick={closeRestore}>
+              Ok
+            </Button>
           </Grid>
         </Box>
       </Dialog>

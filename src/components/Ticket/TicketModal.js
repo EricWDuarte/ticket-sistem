@@ -11,18 +11,35 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
 import Iframe from "react-iframe";
 
-import { DeleteTicket } from "../../apis/TicketsApi";
+import { DeleteTicketAndAddToHistory } from "../../apis/TicketsApi";
 import TicketEdit from "./TicketEdit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import { useAuth } from "../../contexts/AuthContext";
+import HistoryModal from "../History/HistoryModal";
 
 function TicketModal(props) {
   const [openTicketEdit, setOpenTicketEdit] = useState(false);
   const [openTicketDelete, setOpenTicketDelete] = useState(false);
+  const [openHistory, setOpenHistory] = useState(false);
   const urls = props.parentProps.filesUrls;
+
+  const { currentUser } = useAuth();
+
+  const creationEntry = "";
+  const historyList = [];
 
   function closeModal() {
     props.close();
+  }
+
+  function openHistoryModal() {
+    setOpenHistory(true);
+  }
+
+  function closeHistoryModal() {
+    setOpenHistory(false);
   }
 
   function openEdit(e) {
@@ -40,7 +57,7 @@ function TicketModal(props) {
   }
 
   async function onDelete() {
-    await DeleteTicket(props.parentProps.id);
+    await DeleteTicketAndAddToHistory(props.parentProps.id, currentUser.uid);
     window.location.reload(false);
     closeDelete();
   }
@@ -155,20 +172,29 @@ function TicketModal(props) {
           <IconButton onClick={openEdit} className="margin-auto">
             <EditIcon className="alertColor margin-auto" />
           </IconButton>
+          <IconButton onClick={openHistoryModal}>
+            <FormatListBulletedIcon className="margin-auto" />
+          </IconButton>
           <Button onClick={closeModal}>Close</Button>
         </Grid>
       </Grid>
       <Dialog open={openTicketEdit} onBackdropClick={closeEdit}>
         <TicketEdit parentProps={props.parentProps} close={closeEdit} />
       </Dialog>
+      <Dialog open={openHistory} onBackdropClick={closeHistoryModal}>
+        <HistoryModal
+          list={props.parentProps.actions}
+          close={closeHistoryModal}
+        />
+      </Dialog>
       <Dialog open={openTicketDelete} onBackdropClick={closeDelete}>
         <Box m={2}>
           <Typography>Are you sure you want to delete?</Typography>
           <Grid container justifyContent="center">
-          <ButtonGroup>
-            <Button onClick={onDelete}>Yes</Button>
-            <Button onClick={closeDelete}>Cancel</Button>
-          </ButtonGroup>
+            <ButtonGroup>
+              <Button onClick={onDelete}>Yes</Button>
+              <Button onClick={closeDelete}>Cancel</Button>
+            </ButtonGroup>
           </Grid>
         </Box>
       </Dialog>

@@ -64,6 +64,7 @@ function CompletedTicketList(props) {
             environment={data.environment}
             description={data.description}
             filesUrls={data.filesUrls}
+            actions={data.actions}
             data={data}
           />
         ))}

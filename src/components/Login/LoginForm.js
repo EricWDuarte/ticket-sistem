@@ -6,6 +6,7 @@ import { Alert, Box, Button, Divider, Grid, Typography } from "@mui/material";
 import Classes from "./forms.module.css";
 import { useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { CreateUserHistory } from "../../apis/TicketsApi"
 
 function LoginForm() {
   const emailRef = useRef();
@@ -13,7 +14,7 @@ function LoginForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { signin } = useAuth();
+  const { signin, currentUser } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();

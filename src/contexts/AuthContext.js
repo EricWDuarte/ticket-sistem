@@ -7,6 +7,7 @@ import {
   updateEmail,
   updatePassword,
 } from "firebase/auth";
+import { CreateUserHistory } from "../apis/TicketsApi";
 
 import { auth } from "../firebase-config";
 
@@ -48,6 +49,10 @@ export function AuthProvider({ children }) {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
+
+      if (user) {
+        CreateUserHistory(user.uid);
+      }
 
       return unsubscribe;
     });

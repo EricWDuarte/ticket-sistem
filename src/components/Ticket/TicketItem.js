@@ -12,6 +12,8 @@ import { ReactComponent as SideIcon } from "../../assets/sideIcon.svg";
 import CheckIcon from "@mui/icons-material/Check";
 import FmdBadIcon from "@mui/icons-material/FmdBad";
 import { Box } from "@mui/system";
+import { useAuth } from "../../contexts/AuthContext";
+import { DateFormater } from "../../utils/DateFormater";
 
 const themeTicket = createTheme({
   typography: {
@@ -41,6 +43,9 @@ const themeTicket = createTheme({
 function TicketItem(props) {
   const [openTicketModal, setOpenTicketModal] = useState(false);
   const [isConcludeOpen, setIsConcludeOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { currentUser } = useAuth();
 
   function openTicket() {
     setOpenTicketModal(true);
@@ -50,13 +55,25 @@ function TicketItem(props) {
     setOpenTicketModal(false);
   }
 
-  function openConclude(e) {
+  async function openConclude(e) {
     e.stopPropagation();
+    setIsLoading(true);
     setIsConcludeOpen(true);
 
-    completeTicket(props.data).then(() => {
-      DeleteTicket(props.id);
+    const data = props.data;
+
+    let newTicket = data;
+    let historyData = { ...data };
+    delete historyData.actions;
+
+    newTicket.actions.unshift({
+      data: historyData,
+      frase: `Ticket Completed ${DateFormater(new Date())}`,
     });
+    await completeTicket(newTicket, currentUser.uid);
+    await DeleteTicket(props.id);
+
+    setIsLoading(false);
   }
 
   function closeConclude() {
@@ -156,11 +173,20 @@ function TicketItem(props) {
       <Dialog open={openTicketModal} onBackdropClick={closeTicket}>
         <TicketModal parentProps={props} close={closeTicket} />
       </Dialog>
-      <Dialog open={isConcludeOpen} onBackdropClick={closeConclude}>
+      <Dialog
+        open={isConcludeOpen}
+        onBackdropClick={() => {
+          if (!isLoading) {
+            closeConclude();
+          }
+        }}
+      >
         <Box m={3}>
           <Typography>Ticket moved to completed list</Typography>
           <Grid container justifyContent="center">
-            <Button onClick={closeConclude}>Ok</Button>
+            <Button disabled={isLoading} onClick={closeConclude}>
+              Ok
+            </Button>
           </Grid>
         </Box>
       </Dialog>

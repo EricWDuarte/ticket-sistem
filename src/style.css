@@ -2,6 +2,10 @@
   border-radius: 100px;
 }
 
+.clickable:hover {
+  cursor: pointer;
+}
+
 .shadow {
   box-shadow: -2px 3px 3px rgb(93, 110, 90);
 }

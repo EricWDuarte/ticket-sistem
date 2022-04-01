@@ -17,23 +17,11 @@ import {
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../firebase-config";
 
-import { CreateTicket } from "../../apis/TicketsApi";
+import { CreateTicketAndAddToHistory } from "../../apis/TicketsApi";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Validated from "../Validated";
-
-const TICKET_TEST = {
-  title: "teste",
-  description: "teste",
-  product: "teste",
-  category: "test",
-  priority: "baixa",
-  frase: "testestes",
-  impactedUsers: "1 a 10",
-  appStoped: true,
-  environment: "Ambiente de Testes",
-  files: ["teste", "teste"],
-};
+import { DateFormater } from "../../utils/DateFormater";
 
 export default function CreateTicketModal(props) {
   const [loading, setLoading] = useState(false);
@@ -69,6 +57,7 @@ export default function CreateTicketModal(props) {
       impactedUsers: impactedUsersRef.current.value,
       appStoped: appStopedRef.current.value,
       environment: environmentRef.current.value,
+      actions: [],
       filesUrls: filesUrls,
     };
   }
@@ -89,7 +78,6 @@ export default function CreateTicketModal(props) {
     }
 
     const correctExtensions = filesArr.every((file) => {
-      console.log(file);
       const extension = file.name.split(".").pop();
       return extension === "pdf" || extension === "txt";
     });
@@ -150,7 +138,9 @@ export default function CreateTicketModal(props) {
         urlList.forEach((url) => {
           filesUrls.push(url);
         });
-        CreateTicket(UpdatedData()).then(() => {
+        let newData = UpdatedData();
+        newData.actions.unshift({data: UpdatedData(), frase: `Ticket Created ${DateFormater(new Date())}`})
+        CreateTicketAndAddToHistory(newData, currentUser.uid).then(() => {
           window.location.reload(false);
           props.close();
         });

@@ -20,6 +20,7 @@ import { storage } from "../../firebase-config";
 import { UpdateTicket } from "../../apis/TicketsApi";
 import { useAuth } from "../../contexts/AuthContext";
 import Validated from "../Validated";
+import { DateFormater } from "../../utils/DateFormater";
 
 export default function TicketEdit(props) {
   const [loading, setLoading] = useState(false);
@@ -55,6 +56,7 @@ export default function TicketEdit(props) {
       impactedUsers: impactedUsersRef.current.value,
       appStoped: appStopedRef.current.value,
       environment: environmentRef.current.value,
+      actions: props.parentProps.actions,
       filesUrls: filesUrls,
     };
   }
@@ -146,7 +148,12 @@ export default function TicketEdit(props) {
         urlList.forEach((url) => {
           filesUrls.push(url);
         });
-        UpdateTicket(props.parentProps.id, UpdatedData()).then(() => {
+        let newData = UpdatedData();
+        let data =  {...newData} ;
+        delete data.actions;
+        console.log('data', data)
+        newData.actions.unshift({data: data, frase: `Ticket Updated ${DateFormater(new Date())}`})
+        UpdateTicket(currentUser.uid, props.parentProps.id, newData).then(() => {
           window.location.reload(false);
           props.close();
         });
