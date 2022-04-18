@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# Projeto Sistema de Tickets
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto foi desenvolvido como um teste para uma vaga de fullstack React.
+Ele está hopedado em https://sistema-tickets-cea8d.web.app/
 
-## Available Scripts
+## Conhecimentos testados:
+* ReactJS
+* Material UI
+* Firebase
+* JSON-Rest
 
-In the project directory, you can run:
+## Requisitos do projeto:
+1. Criar um sistema de login utilizando autenticação do firebase.
+2. Uma tela principal com a listagem de tickets.
+3. Quando não houver nenhum ticket, mostrar uma mensagem.
+4. Poder filtrar os tickets por título ou por status.
+5. Limitar o número de tickets mostrados por vez utilizando paginação.
+6. Salvar os tickets e buscá-los de um servidor.
+7. O tickets deve ter anexado pelo menos um documento, mas permitindo múltiplos.
+   * Os documentos só podem ser pdf ou txt.
+   * Poder vizualizar os documentos.
+8. O aplicativo deve ser responsivo.
 
-### `npm start`
+## Requisitos do código:
+1. O Front End deve ser em React JS.
+2. Pode ser usado utilizada lib externa como Material UI. Mas deve-se ter pelo menos algo customizado em CSS para mostrar seu
+conhecimento.
+3. Os componentes devem ser function components , utilzando hooks.
+4. A base de dados deve ser Firestore, do Firebase (Google). Para isto pode criar uma conta gratuita no firebase e utilizar a SDK JS do
+firebase.
+5. Não é necessário utilizar redux, mas pode usar se desejar.
+6. Pode utilizar um pré-compilador de SASS/SCSS/LESS para o CSS, mas não é obrigatório, no entanto o estilo em sí também será
+levado em conta.
+7. Utilize pelo menos 1 componente Material.UI7.
+8. Faça pelo menos um arquivo CSS separado de customização.
+9. Pode utilizar Type Script, se não, JS no mínimo ES6.
+10. A aplicação deve possuir autenticação simples. Pode utilizar a autenticação nativa do Firebase.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Tempo de desenvolvimento:
+Pedi 2 semanas para desenvolver o projeto. Utilizei a primeira semana para aprender o framework react, já que só tinha conhecimento em javascript e não em react. A segunda semana utilizei para desenvolver o aplicativo.
