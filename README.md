@@ -1,7 +1,7 @@
 # Projeto Sistema de Tickets
 
 Este projeto foi desenvolvido como um teste para uma vaga de fullstack React.
-Ele está hopedado em https://sistema-tickets-cea8d.web.app/
+Ele está hospedado em https://sistema-tickets-cea8d.web.app/
 
 ## Conhecimentos testados:
 * ReactJS
@@ -19,13 +19,14 @@ Ele está hopedado em https://sistema-tickets-cea8d.web.app/
 7. O tickets deve ter anexado pelo menos um documento, mas permitindo múltiplos.
    * Os documentos só podem ser pdf ou txt.
    * Poder vizualizar os documentos.
-8. O aplicativo deve ser responsivo.
+8. Um histórico mostrando as ações do usuário.
+9. O aplicativo deve ser responsivo.
 
 ## Requisitos do código:
 1. O Front End deve ser em React JS.
 2. Pode ser usado utilizada lib externa como Material UI. Mas deve-se ter pelo menos algo customizado em CSS para mostrar seu
 conhecimento.
-3. Os componentes devem ser function components , utilzando hooks.
+3. Os componentes devem ser function components, utilzando hooks.
 4. A base de dados deve ser Firestore, do Firebase (Google). Para isto pode criar uma conta gratuita no firebase e utilizar a SDK JS do
 firebase.
 5. Não é necessário utilizar redux, mas pode usar se desejar.
